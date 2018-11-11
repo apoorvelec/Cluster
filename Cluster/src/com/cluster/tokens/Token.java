@@ -60,5 +60,10 @@ public class Token {
 			}
 		}
 	}
+	
+	@Override
+	public String toString(){
+		return "{type: "+this._tokenType + ", " + "value: " + this._tokenValue + "}";
+	}
 
 }

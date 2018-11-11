@@ -1,3 +1,4 @@
-IDENTIFIER := *[a-z]
-IF := if
-ELSE := else
+IF := i.f
+ELSE := e.l.s.e
+ID := a.b
+SPACE := *( )

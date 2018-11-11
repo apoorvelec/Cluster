@@ -70,7 +70,8 @@ public class GrammarLoader implements ILoader{
 		if(splitGrammarLine.length>2){
 			return tokenDefinition;
 		}
-		
+		splitGrammarLine[0] = splitGrammarLine[0].trim();
+		splitGrammarLine[1] = splitGrammarLine[1].trim();
 		if(splitGrammarLine[0].equals("") || splitGrammarLine[1].equals("")){
 			return tokenDefinition;
 		}else{
