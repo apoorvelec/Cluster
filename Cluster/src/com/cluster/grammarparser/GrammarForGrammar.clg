@@ -1,0 +1,5 @@
+G → P;G | ɛ
+P → N->F
+F → N F | T F | ɛ
+N → n
+T → t

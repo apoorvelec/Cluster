@@ -1,4 +1,35 @@
-IF := i.f
-ELSE := e.l.s.e
-ID := a.b
-SPACE := *( )
+// This is a single-line comment
+
+// Token/Terminal definitions are defined inside the '#{' and '}#' symbols
+#{
+if := i.f
+else := e.l.s.e
+id := a.b
+space := *( )
+equals := =
+}#
+
+// Next comes the Context-Free-Grammar.
+// The CFG rules are always written inside the '${' and '}$' symbols
+// Rules for writing CFGs in .clg files are as follows:
+//     1) All terminals must be lowercase. eg: lparen, rparen etc.
+//     2) All non-terminals must be uppercase. eg: TERM, EXPRESSION etc.
+//     3) A rule/production should always start with a non-terminal
+//     4) A rule/production must always end with a semi-colon. There should be a
+//        single whitespace between the semi-colon and the adjacent symbol towards its
+//        left. Only when the rule/production right hand side consists of the epsilon
+//        terminal (i.e the "empty" production), the rule is written as follows:
+//                 NONTERMINAL->;
+//     5) Multiple productions can be written on the same line. All of 
+//        them should be separated by semi-colons
+//     6) Multiple productions can also be written on separate lines.
+//     7) In a rule/production, the left hand side is separated from the
+//        right hand side by an arrow symbol '->'. There should be no spaces
+//        around (to the left side of or the right side of) the arrow symbol
+//     8) Symbols on the right hand side of a rule/production should be separated 
+//        by a single whitespace
+
+${
+S->E equals id;
+S->;
+}$
