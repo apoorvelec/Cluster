@@ -1,0 +1,17 @@
+#{
+
+token1 := t.o.k.e.n.1
+token2 := t.o.k.e.n.2
+token3 := t.o.k.e.n.3
+token4 := t.o.k.e.n.4
+
+}#
+
+${
+
+S->;
+S->token1 ;
+S->token2 ;
+S->token3 token4 ;
+
+}$

@@ -1,0 +1,10 @@
+//Comments which start with double forward slashes are allowed
+#{
+token1 := t.o.k.e.n.1
+}#
+
+//Another comment
+
+${
+S->;
+}$

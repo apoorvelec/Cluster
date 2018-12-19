@@ -1,8 +1,11 @@
 package com.cluster.lexer;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import com.cluster.grammarloader.GrammarLoader;
+import com.cluster.grammarloader.TokenDefinitionLoader;
 import com.cluster.tokens.Token;
 import com.owl.main.RegexMatcher;
 
@@ -15,37 +18,31 @@ public class LongestMatchLexer implements ILexer {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		LongestMatchLexer lexer = new LongestMatchLexer("if   else ab else if");
+		LongestMatchLexer lexer = new LongestMatchLexer("if   else ab else ifif");
 		
 		Token token = lexer.getNextToken();
-		System.out.println(token);
-		token = lexer.getNextToken();
-		System.out.println(token);
-		token = lexer.getNextToken();
-		System.out.println(token);
-		token = lexer.getNextToken();
-		System.out.println(token);
-		token = lexer.getNextToken();
-		System.out.println(token);
-		token = lexer.getNextToken();
-		System.out.println(token);
-		token = lexer.getNextToken();
-		System.out.println(token);
-		token = lexer.getNextToken();
-		System.out.println(token);
-		token = lexer.getNextToken();
-		System.out.println(token);
+		while(token!=null){
+			System.out.println(token);
+			token = lexer.getNextToken();
+		}
 		
 	}
 	
 	public LongestMatchLexer(String input){
 		this._programInput = input;
-		this._loader = new GrammarLoader();
+		try {
+			this._loader = new GrammarLoader();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		HashMap<String, String> tokenDefinitionsMap = 
+				this._loader.getGrammar().getTokenDefinitionsMap();
 		this._map = new LinkedHashMap<String, RegexMatcher>();
 		
-		for(String tokenType : this._loader.TOKEN_DEFINITIONS_MAP.keySet()){
-			String regex = this._loader.TOKEN_DEFINITIONS_MAP.get(tokenType);
+		for(String tokenType : tokenDefinitionsMap.keySet()){
+			String regex = tokenDefinitionsMap.get(tokenType);
 			this._map.put(tokenType, 
 					new RegexMatcher(regex));
 		}

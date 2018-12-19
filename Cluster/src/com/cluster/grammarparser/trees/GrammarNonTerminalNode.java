@@ -58,5 +58,17 @@ public class GrammarNonTerminalNode implements ITreeNode {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(!(o instanceof GrammarNonTerminalNode)){
+			return false;
+		}
+		
+		GrammarNonTerminalNode node = (GrammarNonTerminalNode) o;
+		
+		return this._nonTerminal.equals(node._nonTerminal);
+		
+	}
 
 }

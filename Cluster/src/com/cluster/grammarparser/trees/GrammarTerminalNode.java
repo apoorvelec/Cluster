@@ -58,5 +58,17 @@ public class GrammarTerminalNode implements ITreeNode {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(!(o instanceof GrammarTerminalNode)){
+			return false;
+		}
+		
+		GrammarTerminalNode node = (GrammarTerminalNode) o;
+		
+		return this._terminal.equals(node._terminal);
+		
+	}
 
 }

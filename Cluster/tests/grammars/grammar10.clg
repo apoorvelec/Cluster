@@ -1,0 +1,24 @@
+#{
+token0 := t.o.k.e.n.0
+token1 := t.o.k.e.n.1
+token2 := t.o.k.e.n.2
+token3 := t.o.k.e.n.3
+token4 := t.o.k.e.n.4
+token5 := t.o.k.e.n.5
+token6 := t.o.k.e.n.6
+token7 := t.o.k.e.n.7
+token8 := t.o.k.e.n.8
+token9 := t.o.k.e.n.9
+}#
+
+${
+S->;
+S->token0 ;
+S->E token1 T ;
+E->F token2 E ;
+E->token3 S token4 ;
+T->;
+T->token5 E ;
+F->token6 F ;
+F->;
+}$

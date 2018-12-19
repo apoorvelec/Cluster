@@ -16,7 +16,7 @@ public class GrammarParser {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		String input = "S->;S->T a ;";
+		String input = "S->;S->T a ;A->G H a ;S->NONTERMINAL ;NONTERMINAL->d ;";
 		GrammarParser parser = new GrammarParser(input);
 		ITreeNode root = parser.parse();
 		ITreePrinter printer = new WideLayoutPrinter();

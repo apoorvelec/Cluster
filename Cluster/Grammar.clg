@@ -3,10 +3,17 @@
 // Token/Terminal definitions are defined inside the '#{' and '}#' symbols
 #{
 if := i.f
+ifif := i.f.i.f
 else := e.l.s.e
 id := a.b
 space := *( )
 equals := =
+plus := #+
+minus := #-
+multiply := #*
+lparen := #(
+rparen := #)
+divide := /
 }#
 
 // Next comes the Context-Free-Grammar.
@@ -32,6 +39,13 @@ equals := =
 //        encountered inside '#{' and '}#' or between '${' and '}$'
 
 ${
-S->E equals id;
-S->;
+E->T plus E ;
+E->T minus E ;
+E->T ;
+T->F multiply T ;
+T->F divide T ;
+T->F ;
+F->lparen E rparen ;
+F->id ;
+F->;
 }$
