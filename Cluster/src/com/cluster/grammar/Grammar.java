@@ -11,6 +11,7 @@ import java.util.Set;
 
 import javax.management.monitor.StringMonitor;
 
+import com.cluster.grammar.Element.Action;
 import com.cluster.grammarparser.trees.GrammarArrowNode;
 import com.cluster.grammarparser.trees.GrammarNonTerminalNode;
 import com.cluster.grammarparser.trees.GrammarTerminalNode;
@@ -430,7 +431,69 @@ public class Grammar {
 		return this._firstSets.get(symbol);
 	}
 	
-	public List<TokenDefinition> getFollowSet(String symbol){
-		return null;
+	public Set<String> getFollowSet(String symbol){
+		return this._followSets.get(symbol);
 	}
+	
+	public GrammarParseTable getParseTable(){
+		Set<String> terminals = new HashSet<String>(this.getAllTerminals());
+		Set<String> nonterminals = this.getAllNonTerminals();
+		
+		terminals.add("$");
+		
+		GrammarParseTable ll1ParseTable = new GrammarParseTable(nonterminals, terminals);
+		
+		int i = 0;
+		ITreeNode productionNode = this.getProduction(i);
+		while(productionNode!=null){
+			String row = this.getNonTerminalStartingProduction(i).GetValue();
+			
+			Set<String> columns = new HashSet<String>();
+			
+			List<ITreeNode> rhsSymbols = this.getAllRightHandSymbolsOfProduction(i);
+			boolean isRightHandSideNullable = true;
+			for(ITreeNode symbol : rhsSymbols){
+				columns.addAll(this.getFirstSet(symbol.GetValue()));
+				if(!this.IsNullable(symbol.GetValue())){
+					isRightHandSideNullable = false;
+					break;
+				}
+			}
+			
+			if(isRightHandSideNullable){
+				columns.addAll(this.getFollowSet(row));
+			}
+			
+			//add the production in the row and column pairs
+			for(String col : columns){
+				Element element = new Element(Action.EXPAND, i);
+				if(!ll1ParseTable.getElement(row, col).isEmpty()){
+					return null;
+				}
+				ll1ParseTable.setElement(row, col, element);
+			}
+			
+			i++;
+			productionNode = this.getProduction(i);
+		}
+		
+		return ll1ParseTable;
+	}
+	
+	public boolean isTerminal(String variable){
+		if(this._terminals.contains(variable)){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean isNonterminal(String variable){
+		if(this._nonTerminals.contains(variable)){
+			return true;
+		}
+		
+		return false;
+	}
+	
 }

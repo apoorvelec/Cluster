@@ -35,7 +35,7 @@ public class GrammarLoader implements ILoader{
 		// TODO Auto-generated method stub
 		GrammarLoader loader = null;
 		try {
-			loader = new GrammarLoader(".\\tests\\grammars\\grammar7.clg");
+			loader = new GrammarLoader(".\\tests\\grammars\\grammar17.clg");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,6 +86,12 @@ public class GrammarLoader implements ILoader{
 			System.out.print(s + "->");
 			System.out.println(followSets.get(s));
 		}
+		
+		System.out.println("------------------------------------------");
+		
+		System.out.println("LL1 table:");
+		
+		System.out.println(grammar.getParseTable());
 	}
 	
 	public GrammarLoader() throws IOException{

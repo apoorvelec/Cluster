@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import com.cluster.grammar.exceptions.IncorrectGrammarFileNameException;
 import com.cluster.grammarloader.GrammarLoader;
 import com.cluster.grammarloader.TokenDefinitionLoader;
 import com.cluster.tokens.Token;
@@ -33,6 +34,26 @@ public class LongestMatchLexer implements ILexer {
 		try {
 			this._loader = new GrammarLoader();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		HashMap<String, String> tokenDefinitionsMap = 
+				this._loader.getGrammar().getTokenDefinitionsMap();
+		this._map = new LinkedHashMap<String, RegexMatcher>();
+		
+		for(String tokenType : tokenDefinitionsMap.keySet()){
+			String regex = tokenDefinitionsMap.get(tokenType);
+			this._map.put(tokenType, 
+					new RegexMatcher(regex));
+		}
+	}
+	
+	public LongestMatchLexer(String input, String grammarFilePath){
+		this._programInput = input;
+		try {
+			this._loader = new GrammarLoader(grammarFilePath);
+		} catch (IOException | IncorrectGrammarFileNameException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -116,7 +137,9 @@ public class LongestMatchLexer implements ILexer {
 		
 		return false;
 	}
-
 	
-
+	public GrammarLoader getGrammarLoader(){
+		return this._loader;
+	}
+	
 }
