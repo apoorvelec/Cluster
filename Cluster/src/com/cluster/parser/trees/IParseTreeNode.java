@@ -10,11 +10,8 @@ public interface IParseTreeNode {
 	public Boolean removeChildNode(IParseTreeNode child);
 	
 	public String getValue();
+	public int getID();
 	
-	public void visitInorderTraversal();
-	
-	public void visitPreorderTraversal();
-	
-	public void visitPostOrderTraversal();
+	//public <R, P> R accept(IParseTreeVisitor<R, P> visitor, P p);
 	
 }

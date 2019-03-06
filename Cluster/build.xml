@@ -1,0 +1,18 @@
+<?xml version = "1.0"?>
+<project name = "sample" basedir = "." default = "run">
+    <target name="compile">
+    	<javac srcdir=".\\src" includeantruntime="true" destdir=".\\antbuild">
+    		<classpath>
+        		<pathelement path=".\\lib\\owl.jar"/>
+    		</classpath>
+    	</javac>
+	</target>
+	<target name="run" depends="compile">
+       <java classname="com.cluster.parser.generator.ParseTreeHelperSourcesGenerator" fork="true">
+           <classpath>
+        		<pathelement path=".\\antbuild"/>
+        		<pathelement path=".\\lib\\owl.jar"/>
+    		</classpath>
+       </java>
+	</target>
+</project>

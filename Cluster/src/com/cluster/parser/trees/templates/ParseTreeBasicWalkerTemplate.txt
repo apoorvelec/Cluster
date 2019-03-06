@@ -1,0 +1,51 @@
+package com.cluster.parser.trees.generated;
+import com.cluster.parser.trees.*;
+
+public abstract class ParseTreeBasicWalker<R, P> implements IParseTreeVisitor<R, P>{
+
+	{REPEATSTMT}
+	public abstract <P> void enter%nonterminal%(ParseTree_%nonterminal%_NTNode node, P p);
+	public abstract <P> void exit%nonterminal%(ParseTree_%nonterminal%_NTNode node, P p);
+	{ENDREPEATSTMT}
+	{REPEATSTMT}
+	public abstract <P> void visit%terminal%(ParseTree_%terminal%_TNode node, P p);
+	{ENDREPEATSTMT}
+	
+	{REPEATSTMT}
+	@Override
+	public R visit(ParseTree_%nonterminal%_NTNode node, P p) {
+		enter%nonterminal%(node, p);
+		for(IParseTreeNode n : node.getAllChildNodes()){
+			this.visit(n, p);
+		}
+		exit%nonterminal%(node, p);
+		return null;
+	}
+	{ENDREPEATSTMT}
+	
+	{REPEATSTMT}
+	@Override
+	public R visit(ParseTree_%terminal%_TNode node, P p) {
+		visit%terminal%(node, p);
+		return null;
+	}
+	{ENDREPEATSTMT}
+	
+	@Override
+	public R visit(IParseTreeNode node, P p) {
+		// TODO Auto-generated method stub
+		{REPEATSTMT}
+		if(node instanceof ParseTree_%nonterminal%_NTNode){
+			this.visit((ParseTree_%nonterminal%_NTNode)node, p);
+			return null;
+		}
+		{ENDREPEATSTMT}
+		{REPEATSTMT}
+		if(node instanceof ParseTree_%terminal%_TNode){
+			this.visit((ParseTree_%terminal%_TNode)node, p);
+			return null;
+		}
+		{ENDREPEATSTMT}
+		return null;
+	}
+}

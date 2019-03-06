@@ -35,11 +35,8 @@ public class GrammarLoader implements ILoader{
 		// TODO Auto-generated method stub
 		GrammarLoader loader = null;
 		try {
-			loader = new GrammarLoader(".\\tests\\grammars\\grammar17.clg");
+			loader = new GrammarLoader();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IncorrectGrammarFileNameException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

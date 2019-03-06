@@ -1,0 +1,8 @@
+package com.cluster.parser.trees.generated;
+import com.cluster.parser.trees.*;
+
+public interface IParseTreeVisitor<R,P> {
+	
+	{REPEATSTMT}:public R visit(%ParseTreeNodeType% node, P p);
+	public R visit(IParseTreeNode node, P p);
+}
