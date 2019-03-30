@@ -2,16 +2,13 @@
 
 // Token/Terminal definitions are defined inside the '#{' and '}#' symbols
 #{
-token0 := t.o.k.e.n.0
-token1 := t.o.k.e.n.1
-token2 := t.o.k.e.n.2
-token3 := t.o.k.e.n.3
-token4 := t.o.k.e.n.4
-token5 := t.o.k.e.n.5
-token6 := t.o.k.e.n.6
-token7 := t.o.k.e.n.7
-token8 := t.o.k.e.n.8
-token9 := t.o.k.e.n.9
+PLUS := #+
+MINUS := #-
+MULT := #*
+LPAREN := #(
+RPAREN := #)
+FSLASH := /
+INT := 0+1+2+3+4+5+6+7+8+9
 }#
 
 // Next comes the Context-Free-Grammar.
@@ -37,9 +34,14 @@ token9 := t.o.k.e.n.9
 //        encountered inside '#{' and '}#' or between '${' and '}$'
 
 ${
-S->E token0 F token1 G token2 ;
-E->token3 F token4 ;
-F->token5 G token6 ;
-G->token7 ;
-S->;
+E->T EP ;
+EP->PLUS T EP ;
+EP->;
+EP->MINUS T EP ;
+T->F TP ;
+TP->MULT F TP ;
+TP->;
+TP->FSLASH F TP ;
+F->LPAREN E RPAREN ;
+F->INT ;
 }$

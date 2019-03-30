@@ -3,9 +3,9 @@ import java.util.List;
 import com.cluster.parser.trees.*;
 
 /*Auto Generated class file. Please do not modify!!*/
-public class ParseTree_token2_TNode extends ParseTreeTerminalNode{
+public class ParseTree_MINUS_TNode extends ParseTreeTerminalNode{
 
-	public ParseTree_token2_TNode(String data, List<IParseTreeNode> children) {
+	public ParseTree_MINUS_TNode(String data, List<IParseTreeNode> children) {
 		super(data, children);
 		// TODO Auto-generated constructor stub
 	}

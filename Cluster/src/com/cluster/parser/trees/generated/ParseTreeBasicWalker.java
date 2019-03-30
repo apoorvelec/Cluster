@@ -3,8 +3,8 @@ import com.cluster.parser.trees.*;
 
 public abstract class ParseTreeBasicWalker<R, P> implements IParseTreeVisitor<R, P>{
 
-	public abstract <P> void enterS(ParseTree_S_NTNode node, P p);
-	public abstract <P> void exitS(ParseTree_S_NTNode node, P p);
+	public abstract <P> void enterT(ParseTree_T_NTNode node, P p);
+	public abstract <P> void exitT(ParseTree_T_NTNode node, P p);
 
 	public abstract <P> void enterE(ParseTree_E_NTNode node, P p);
 	public abstract <P> void exitE(ParseTree_E_NTNode node, P p);
@@ -12,37 +12,34 @@ public abstract class ParseTreeBasicWalker<R, P> implements IParseTreeVisitor<R,
 	public abstract <P> void enterF(ParseTree_F_NTNode node, P p);
 	public abstract <P> void exitF(ParseTree_F_NTNode node, P p);
 
-	public abstract <P> void enterG(ParseTree_G_NTNode node, P p);
-	public abstract <P> void exitG(ParseTree_G_NTNode node, P p);
+	public abstract <P> void enterEP(ParseTree_EP_NTNode node, P p);
+	public abstract <P> void exitEP(ParseTree_EP_NTNode node, P p);
 
-	public abstract <P> void visittoken0(ParseTree_token0_TNode node, P p);
+	public abstract <P> void enterTP(ParseTree_TP_NTNode node, P p);
+	public abstract <P> void exitTP(ParseTree_TP_NTNode node, P p);
 
-	public abstract <P> void visittoken1(ParseTree_token1_TNode node, P p);
+	public abstract <P> void visitPLUS(ParseTree_PLUS_TNode node, P p);
 
-	public abstract <P> void visittoken2(ParseTree_token2_TNode node, P p);
+	public abstract <P> void visitMINUS(ParseTree_MINUS_TNode node, P p);
 
-	public abstract <P> void visittoken3(ParseTree_token3_TNode node, P p);
+	public abstract <P> void visitMULT(ParseTree_MULT_TNode node, P p);
 
-	public abstract <P> void visittoken4(ParseTree_token4_TNode node, P p);
+	public abstract <P> void visitLPAREN(ParseTree_LPAREN_TNode node, P p);
 
-	public abstract <P> void visittoken5(ParseTree_token5_TNode node, P p);
+	public abstract <P> void visitRPAREN(ParseTree_RPAREN_TNode node, P p);
 
-	public abstract <P> void visittoken6(ParseTree_token6_TNode node, P p);
+	public abstract <P> void visitFSLASH(ParseTree_FSLASH_TNode node, P p);
 
-	public abstract <P> void visittoken7(ParseTree_token7_TNode node, P p);
-
-	public abstract <P> void visittoken8(ParseTree_token8_TNode node, P p);
-
-	public abstract <P> void visittoken9(ParseTree_token9_TNode node, P p);
+	public abstract <P> void visitINT(ParseTree_INT_TNode node, P p);
 
 	
 	@Override
-	public R visit(ParseTree_S_NTNode node, P p) {
-		enterS(node, p);
+	public R visit(ParseTree_T_NTNode node, P p) {
+		enterT(node, p);
 		for(IParseTreeNode n : node.getAllChildNodes()){
 			this.visit(n, p);
 		}
-		exitS(node, p);
+		exitT(node, p);
 		return null;
 	}
 
@@ -67,73 +64,65 @@ public abstract class ParseTreeBasicWalker<R, P> implements IParseTreeVisitor<R,
 	}
 
 	@Override
-	public R visit(ParseTree_G_NTNode node, P p) {
-		enterG(node, p);
+	public R visit(ParseTree_EP_NTNode node, P p) {
+		enterEP(node, p);
 		for(IParseTreeNode n : node.getAllChildNodes()){
 			this.visit(n, p);
 		}
-		exitG(node, p);
+		exitEP(node, p);
+		return null;
+	}
+
+	@Override
+	public R visit(ParseTree_TP_NTNode node, P p) {
+		enterTP(node, p);
+		for(IParseTreeNode n : node.getAllChildNodes()){
+			this.visit(n, p);
+		}
+		exitTP(node, p);
 		return null;
 	}
 
 	
 	@Override
-	public R visit(ParseTree_token0_TNode node, P p) {
-		visittoken0(node, p);
+	public R visit(ParseTree_PLUS_TNode node, P p) {
+		visitPLUS(node, p);
 		return null;
 	}
 
 	@Override
-	public R visit(ParseTree_token1_TNode node, P p) {
-		visittoken1(node, p);
+	public R visit(ParseTree_MINUS_TNode node, P p) {
+		visitMINUS(node, p);
 		return null;
 	}
 
 	@Override
-	public R visit(ParseTree_token2_TNode node, P p) {
-		visittoken2(node, p);
+	public R visit(ParseTree_MULT_TNode node, P p) {
+		visitMULT(node, p);
 		return null;
 	}
 
 	@Override
-	public R visit(ParseTree_token3_TNode node, P p) {
-		visittoken3(node, p);
+	public R visit(ParseTree_LPAREN_TNode node, P p) {
+		visitLPAREN(node, p);
 		return null;
 	}
 
 	@Override
-	public R visit(ParseTree_token4_TNode node, P p) {
-		visittoken4(node, p);
+	public R visit(ParseTree_RPAREN_TNode node, P p) {
+		visitRPAREN(node, p);
 		return null;
 	}
 
 	@Override
-	public R visit(ParseTree_token5_TNode node, P p) {
-		visittoken5(node, p);
+	public R visit(ParseTree_FSLASH_TNode node, P p) {
+		visitFSLASH(node, p);
 		return null;
 	}
 
 	@Override
-	public R visit(ParseTree_token6_TNode node, P p) {
-		visittoken6(node, p);
-		return null;
-	}
-
-	@Override
-	public R visit(ParseTree_token7_TNode node, P p) {
-		visittoken7(node, p);
-		return null;
-	}
-
-	@Override
-	public R visit(ParseTree_token8_TNode node, P p) {
-		visittoken8(node, p);
-		return null;
-	}
-
-	@Override
-	public R visit(ParseTree_token9_TNode node, P p) {
-		visittoken9(node, p);
+	public R visit(ParseTree_INT_TNode node, P p) {
+		visitINT(node, p);
 		return null;
 	}
 
@@ -141,8 +130,8 @@ public abstract class ParseTreeBasicWalker<R, P> implements IParseTreeVisitor<R,
 	@Override
 	public R visit(IParseTreeNode node, P p) {
 		// TODO Auto-generated method stub
-		if(node instanceof ParseTree_S_NTNode){
-			this.visit((ParseTree_S_NTNode)node, p);
+		if(node instanceof ParseTree_T_NTNode){
+			this.visit((ParseTree_T_NTNode)node, p);
 			return null;
 		}
 
@@ -156,58 +145,48 @@ public abstract class ParseTreeBasicWalker<R, P> implements IParseTreeVisitor<R,
 			return null;
 		}
 
-		if(node instanceof ParseTree_G_NTNode){
-			this.visit((ParseTree_G_NTNode)node, p);
+		if(node instanceof ParseTree_EP_NTNode){
+			this.visit((ParseTree_EP_NTNode)node, p);
 			return null;
 		}
 
-		if(node instanceof ParseTree_token0_TNode){
-			this.visit((ParseTree_token0_TNode)node, p);
+		if(node instanceof ParseTree_TP_NTNode){
+			this.visit((ParseTree_TP_NTNode)node, p);
 			return null;
 		}
 
-		if(node instanceof ParseTree_token1_TNode){
-			this.visit((ParseTree_token1_TNode)node, p);
+		if(node instanceof ParseTree_PLUS_TNode){
+			this.visit((ParseTree_PLUS_TNode)node, p);
 			return null;
 		}
 
-		if(node instanceof ParseTree_token2_TNode){
-			this.visit((ParseTree_token2_TNode)node, p);
+		if(node instanceof ParseTree_MINUS_TNode){
+			this.visit((ParseTree_MINUS_TNode)node, p);
 			return null;
 		}
 
-		if(node instanceof ParseTree_token3_TNode){
-			this.visit((ParseTree_token3_TNode)node, p);
+		if(node instanceof ParseTree_MULT_TNode){
+			this.visit((ParseTree_MULT_TNode)node, p);
 			return null;
 		}
 
-		if(node instanceof ParseTree_token4_TNode){
-			this.visit((ParseTree_token4_TNode)node, p);
+		if(node instanceof ParseTree_LPAREN_TNode){
+			this.visit((ParseTree_LPAREN_TNode)node, p);
 			return null;
 		}
 
-		if(node instanceof ParseTree_token5_TNode){
-			this.visit((ParseTree_token5_TNode)node, p);
+		if(node instanceof ParseTree_RPAREN_TNode){
+			this.visit((ParseTree_RPAREN_TNode)node, p);
 			return null;
 		}
 
-		if(node instanceof ParseTree_token6_TNode){
-			this.visit((ParseTree_token6_TNode)node, p);
+		if(node instanceof ParseTree_FSLASH_TNode){
+			this.visit((ParseTree_FSLASH_TNode)node, p);
 			return null;
 		}
 
-		if(node instanceof ParseTree_token7_TNode){
-			this.visit((ParseTree_token7_TNode)node, p);
-			return null;
-		}
-
-		if(node instanceof ParseTree_token8_TNode){
-			this.visit((ParseTree_token8_TNode)node, p);
-			return null;
-		}
-
-		if(node instanceof ParseTree_token9_TNode){
-			this.visit((ParseTree_token9_TNode)node, p);
+		if(node instanceof ParseTree_INT_TNode){
+			this.visit((ParseTree_INT_TNode)node, p);
 			return null;
 		}
 

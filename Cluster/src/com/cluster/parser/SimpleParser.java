@@ -1,33 +1,27 @@
 package com.cluster.parser;
 
-import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.cluster.grammar.Element;
 import com.cluster.grammar.Grammar;
-import com.cluster.grammar.GrammarParseTable;
-import com.cluster.grammar.exceptions.IncorrectGrammarFileNameException;
-import com.cluster.grammarloader.GrammarLoader;
 import com.cluster.lexer.LongestMatchLexer;
 import com.cluster.parser.trees.IParseTreeNode;
 import com.cluster.parser.trees.ParseTreeNodeFactory;
 import com.cluster.parser.trees.generated.ParseTreeBasicWalker;
+import com.cluster.parser.trees.generated.ParseTree_EP_NTNode;
 import com.cluster.parser.trees.generated.ParseTree_E_NTNode;
+import com.cluster.parser.trees.generated.ParseTree_FSLASH_TNode;
 import com.cluster.parser.trees.generated.ParseTree_F_NTNode;
-import com.cluster.parser.trees.generated.ParseTree_G_NTNode;
-import com.cluster.parser.trees.generated.ParseTree_S_NTNode;
-import com.cluster.parser.trees.generated.ParseTree_token0_TNode;
-import com.cluster.parser.trees.generated.ParseTree_token1_TNode;
-import com.cluster.parser.trees.generated.ParseTree_token2_TNode;
-import com.cluster.parser.trees.generated.ParseTree_token3_TNode;
-import com.cluster.parser.trees.generated.ParseTree_token4_TNode;
-import com.cluster.parser.trees.generated.ParseTree_token5_TNode;
-import com.cluster.parser.trees.generated.ParseTree_token6_TNode;
-import com.cluster.parser.trees.generated.ParseTree_token7_TNode;
-import com.cluster.parser.trees.generated.ParseTree_token8_TNode;
-import com.cluster.parser.trees.generated.ParseTree_token9_TNode;
+import com.cluster.parser.trees.generated.ParseTree_INT_TNode;
+import com.cluster.parser.trees.generated.ParseTree_LPAREN_TNode;
+import com.cluster.parser.trees.generated.ParseTree_MINUS_TNode;
+import com.cluster.parser.trees.generated.ParseTree_MULT_TNode;
+import com.cluster.parser.trees.generated.ParseTree_PLUS_TNode;
+import com.cluster.parser.trees.generated.ParseTree_RPAREN_TNode;
+import com.cluster.parser.trees.generated.ParseTree_TP_NTNode;
+import com.cluster.parser.trees.generated.ParseTree_T_NTNode;
 import com.cluster.tokens.Token;
 import com.owl.trees.ITreeNode;
 
@@ -40,7 +34,7 @@ public class SimpleParser implements IParser{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String inputProgram = "token3token5token7token6token4token0token5token7token6token1token7token2";
+		String inputProgram = "1+1";
 		String grammarFilePath = ".\\tests\\grammars\\grammar20.clg";
 		//LongestMatchLexer lexer = new LongestMatchLexer(inputProgram, grammarFilePath);
 		LongestMatchLexer lexer = new LongestMatchLexer(inputProgram);
@@ -54,121 +48,116 @@ public class SimpleParser implements IParser{
 		}
 		
 		SimpleParser parser = new SimpleParser(tokensList, lexer.getGrammarLoader().getGrammar());
-		
+		//System.out.println(lexer.getGrammarLoader().getGrammar().getParseTable());
 		IParseTreeNode root = parser.parse();
 		ParseTreeBasicWalker<Object, Object> walker = new ParseTreeBasicWalker<Object, Object>() {
 
 			@Override
-			public <P> void enterS(ParseTree_S_NTNode node, P p) {
+			public <P> void enterT(ParseTree_T_NTNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Entering S ...");
+				
 			}
 
 			@Override
-			public <P> void exitS(ParseTree_S_NTNode node, P p) {
+			public <P> void exitT(ParseTree_T_NTNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Exiting S ...");
+				
 			}
 
 			@Override
 			public <P> void enterE(ParseTree_E_NTNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Entering E ...");
+				
 			}
 
 			@Override
 			public <P> void exitE(ParseTree_E_NTNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Exiting E ...");
+				
 			}
 
 			@Override
 			public <P> void enterF(ParseTree_F_NTNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Entering F ...");
+				
 			}
 
 			@Override
 			public <P> void exitF(ParseTree_F_NTNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Exiting F ...");
+				
 			}
 
 			@Override
-			public <P> void enterG(ParseTree_G_NTNode node, P p) {
+			public <P> void enterEP(ParseTree_EP_NTNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Entering G ...");
+				
 			}
 
 			@Override
-			public <P> void exitG(ParseTree_G_NTNode node, P p) {
+			public <P> void exitEP(ParseTree_EP_NTNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Exiting G ...");
+				
 			}
 
 			@Override
-			public <P> void visittoken0(ParseTree_token0_TNode node, P p) {
+			public <P> void enterTP(ParseTree_TP_NTNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Visiting token0 ...");
+				
 			}
 
 			@Override
-			public <P> void visittoken1(ParseTree_token1_TNode node, P p) {
+			public <P> void exitTP(ParseTree_TP_NTNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Visiting token1 ...");
+				
 			}
 
 			@Override
-			public <P> void visittoken2(ParseTree_token2_TNode node, P p) {
+			public <P> void visitPLUS(ParseTree_PLUS_TNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Visiting token2 ...");
+				
 			}
 
 			@Override
-			public <P> void visittoken3(ParseTree_token3_TNode node, P p) {
+			public <P> void visitMULT(ParseTree_MULT_TNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Visiting token3 ...");
+				
 			}
 
 			@Override
-			public <P> void visittoken4(ParseTree_token4_TNode node, P p) {
+			public <P> void visitLPAREN(ParseTree_LPAREN_TNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Visiting token4 ...");
+				
 			}
 
 			@Override
-			public <P> void visittoken5(ParseTree_token5_TNode node, P p) {
+			public <P> void visitRPAREN(ParseTree_RPAREN_TNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Visiting token5 ...");
+				
 			}
 
 			@Override
-			public <P> void visittoken6(ParseTree_token6_TNode node, P p) {
+			public <P> void visitINT(ParseTree_INT_TNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Visiting token6 ...");
+				
 			}
 
 			@Override
-			public <P> void visittoken7(ParseTree_token7_TNode node, P p) {
+			public <P> void visitMINUS(ParseTree_MINUS_TNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Visiting token7 ...");
+				
 			}
 
 			@Override
-			public <P> void visittoken8(ParseTree_token8_TNode node, P p) {
+			public <P> void visitFSLASH(ParseTree_FSLASH_TNode node, P p) {
 				// TODO Auto-generated method stub
-				System.out.println("Visiting token8 ...");
+				
 			}
 
-			@Override
-			public <P> void visittoken9(ParseTree_token9_TNode node, P p) {
-				// TODO Auto-generated method stub
-				System.out.println("Visiting token9 ...");
-			}
 
 		};
 		
-		((ParseTree_S_NTNode)root).accept(walker, null);
+		((ParseTree_E_NTNode)root).accept(walker, null);
 		System.out.println(root.getID()+" "+root.getValue());
 	}
 	
@@ -209,10 +198,25 @@ public class SimpleParser implements IParser{
 					token = consumeToken();
 				}
 			}else{
-				Element actionElement = 
-						this._grammar.getParseTable()
-						.getElement(stackElement, token.getTokenType());
-				
+				Element actionElement = null;
+				if(token!=null){
+					actionElement = 
+							this._grammar.getParseTable()
+							.getElement(stackElement, token.getTokenType());
+				}else{
+					actionElement = 
+							this._grammar.getParseTable()
+							.getElement(stackElement, "$");
+				}
+				if(actionElement.Action == null || actionElement.StateNumberOrProductionNumber == null){
+					try {
+						throw new Exception();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return null;
+					}
+				}
 				if(actionElement!=null && actionElement.StateNumberOrProductionNumber!=null){
 					List<ITreeNode> rightHandSymbols = 
 							this._grammar.getAllRightHandSymbolsOfProduction(actionElement.StateNumberOrProductionNumber);
