@@ -9,19 +9,6 @@ import com.cluster.grammar.Grammar;
 import com.cluster.lexer.LongestMatchLexer;
 import com.cluster.parser.trees.IParseTreeNode;
 import com.cluster.parser.trees.ParseTreeNodeFactory;
-import com.cluster.parser.trees.generated.ParseTreeBasicWalker;
-import com.cluster.parser.trees.generated.ParseTree_EP_NTNode;
-import com.cluster.parser.trees.generated.ParseTree_E_NTNode;
-import com.cluster.parser.trees.generated.ParseTree_FSLASH_TNode;
-import com.cluster.parser.trees.generated.ParseTree_F_NTNode;
-import com.cluster.parser.trees.generated.ParseTree_INT_TNode;
-import com.cluster.parser.trees.generated.ParseTree_LPAREN_TNode;
-import com.cluster.parser.trees.generated.ParseTree_MINUS_TNode;
-import com.cluster.parser.trees.generated.ParseTree_MULT_TNode;
-import com.cluster.parser.trees.generated.ParseTree_PLUS_TNode;
-import com.cluster.parser.trees.generated.ParseTree_RPAREN_TNode;
-import com.cluster.parser.trees.generated.ParseTree_TP_NTNode;
-import com.cluster.parser.trees.generated.ParseTree_T_NTNode;
 import com.cluster.tokens.Token;
 import com.owl.trees.ITreeNode;
 
@@ -34,7 +21,7 @@ public class SimpleParser implements IParser{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String inputProgram = "1+1";
+		String inputProgram = "(1+1)*((1/2+3*4)*2)";
 		String grammarFilePath = ".\\tests\\grammars\\grammar20.clg";
 		//LongestMatchLexer lexer = new LongestMatchLexer(inputProgram, grammarFilePath);
 		LongestMatchLexer lexer = new LongestMatchLexer(inputProgram);
@@ -50,7 +37,7 @@ public class SimpleParser implements IParser{
 		SimpleParser parser = new SimpleParser(tokensList, lexer.getGrammarLoader().getGrammar());
 		//System.out.println(lexer.getGrammarLoader().getGrammar().getParseTable());
 		IParseTreeNode root = parser.parse();
-		ParseTreeBasicWalker<Object, Object> walker = new ParseTreeBasicWalker<Object, Object>() {
+/*		ParseTreeBasicWalker<Object, Object> walker = new ParseTreeBasicWalker<Object, Object>() {
 
 			@Override
 			public <P> void enterT(ParseTree_T_NTNode node, P p) {
@@ -157,7 +144,7 @@ public class SimpleParser implements IParser{
 
 		};
 		
-		((ParseTree_E_NTNode)root).accept(walker, null);
+		((ParseTree_E_NTNode)root).accept(walker, null);*/
 		System.out.println(root.getID()+" "+root.getValue());
 	}
 	

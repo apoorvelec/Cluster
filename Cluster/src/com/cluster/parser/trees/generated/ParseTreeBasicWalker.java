@@ -3,6 +3,9 @@ import com.cluster.parser.trees.*;
 
 public abstract class ParseTreeBasicWalker<R, P> implements IParseTreeVisitor<R, P>{
 
+	public abstract <P> void enterS(ParseTree_S_NTNode node, P p);
+	public abstract <P> void exitS(ParseTree_S_NTNode node, P p);
+
 	public abstract <P> void enterT(ParseTree_T_NTNode node, P p);
 	public abstract <P> void exitT(ParseTree_T_NTNode node, P p);
 
@@ -33,6 +36,16 @@ public abstract class ParseTreeBasicWalker<R, P> implements IParseTreeVisitor<R,
 	public abstract <P> void visitINT(ParseTree_INT_TNode node, P p);
 
 	
+	@Override
+	public R visit(ParseTree_S_NTNode node, P p) {
+		enterS(node, p);
+		for(IParseTreeNode n : node.getAllChildNodes()){
+			this.visit(n, p);
+		}
+		exitS(node, p);
+		return null;
+	}
+
 	@Override
 	public R visit(ParseTree_T_NTNode node, P p) {
 		enterT(node, p);
@@ -130,6 +143,11 @@ public abstract class ParseTreeBasicWalker<R, P> implements IParseTreeVisitor<R,
 	@Override
 	public R visit(IParseTreeNode node, P p) {
 		// TODO Auto-generated method stub
+		if(node instanceof ParseTree_S_NTNode){
+			this.visit((ParseTree_S_NTNode)node, p);
+			return null;
+		}
+
 		if(node instanceof ParseTree_T_NTNode){
 			this.visit((ParseTree_T_NTNode)node, p);
 			return null;

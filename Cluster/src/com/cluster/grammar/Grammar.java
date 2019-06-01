@@ -172,6 +172,24 @@ public class Grammar {
 		return this._productionsIndexMap.get(i).GetLeftNode();
 	}
 	
+	public List<Integer> getAllProductionsStartingWith(String nonterminal){
+		List<Integer> result = null;
+		if(this.isTerminal(nonterminal)){
+			return result;
+		}
+		
+		result = new ArrayList<Integer>();
+		
+		for(int i=0;i<this._productionsIndexMap.size();i++){
+			String nt = this.getNonTerminalStartingProduction(i).GetValue();
+			if(nonterminal.equals(nt)){
+				result.add(i);
+			}
+		}
+		
+		return result;
+	}
+	
 	public List<ITreeNode> getAllRightHandSymbolsOfProduction(int i){
 		List<ITreeNode> inOrderTraversalList = new ArrayList<ITreeNode>();
 		ITreeNode productionNode = this._productionsIndexMap.get(i);
@@ -431,6 +449,31 @@ public class Grammar {
 		return this._firstSets.get(symbol);
 	}
 	
+	/**
+	 * This method is expected to be used once all the first/follow/nullable sets
+	 * have already been calculated
+	 * @param symbolStrings: List of symbols representing the symbol sequence
+	 * @return: First set of the sequence of symbols
+	 */
+	public Set<String> getFirstSet(List<String> symbolStrings){
+		Set<String> resultSet = new HashSet<String>();
+		
+		for(String symbol: symbolStrings){
+			if(this.isTerminal(symbol)){
+				resultSet.add(symbol);
+				return resultSet;
+			}else{
+				resultSet.addAll(this.getFirstSet(symbol));
+				
+				if(!this.IsNullable(symbol)){
+					return resultSet;
+				}
+			}
+		}
+		
+		return resultSet;
+	}
+	
 	public Set<String> getFollowSet(String symbol){
 		return this._followSets.get(symbol);
 	}
@@ -480,8 +523,61 @@ public class Grammar {
 		return ll1ParseTable;
 	}
 	
+	//TODO: Add checks to understand whether multiple entries are being added
+	// for the same row index and column index. If such multiple entries are getting
+	// added, then the grammar is not LR(1)
+	public GrammarParseTable getLR1ParseTable(){
+		LR1FSMBuilder fSMBuilder = new LR1FSMBuilder(this);
+		HashSet<LR1State> setOfAllStates = fSMBuilder.getSetOfAllStates();
+		Set<String> symbolsForTerminalsAndNonTerminals = new HashSet<String>(this.getAllTerminals());
+		symbolsForTerminalsAndNonTerminals.addAll(this.getAllNonTerminals());
+		symbolsForTerminalsAndNonTerminals.add("$");
+		symbolsForTerminalsAndNonTerminals.add("");
+		
+		Set<String> symbolsForStates = new HashSet<String>();
+		for(LR1State state: setOfAllStates){
+			symbolsForStates.add(((Integer)state.getID()).toString());
+		}
+		
+		System.out.println(symbolsForTerminalsAndNonTerminals);
+		System.out.println(symbolsForStates);
+		
+		GrammarParseTable lr1ParseTable = 
+				new GrammarParseTable(symbolsForStates, 
+						symbolsForTerminalsAndNonTerminals); 
+		
+		for(LR1State state: setOfAllStates){
+			HashMap<String, LR1State> transitionMap = state.getTransitionMap();
+			for(String symbol: transitionMap.keySet()){
+				if(this.isNonterminal(symbol)){
+					lr1ParseTable.setElement(((Integer)state.getID()).toString(), 
+												symbol, 
+												new Element(Action.GOTO, 
+														transitionMap.get(symbol).getID()));
+				}else{
+					lr1ParseTable.setElement(((Integer)state.getID()).toString(), 
+							symbol, 
+							new Element(Action.SHIFT, 
+									transitionMap.get(symbol).getID()));
+				}
+			}
+			
+			//Now check for reduce elements
+			for(LR1Item item: state.getItemSet().getAllItems()){
+				if(item.isDotAtEnd()){
+					lr1ParseTable.setElement(((Integer)state.getID()).toString(), 
+							item.getLookaheadValue(), 
+							new Element(Action.REDUCE, item.getProductionIndex()));
+				}
+			}
+		}
+		return lr1ParseTable;
+	}
+	
 	public boolean isTerminal(String variable){
-		if(this._terminals.contains(variable)){
+		if(this._terminals.contains(variable)
+				||variable.equals("")
+				||variable.equals("$")){
 			return true;
 		}
 		

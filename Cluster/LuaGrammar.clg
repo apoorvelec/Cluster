@@ -1,0 +1,93 @@
+${
+CHUNK->{STAT [`;´]} [LASTSTAT [`;´]] ;
+
+BLOCK->CHUNK ;
+
+STAT->VARLIST `=´ EXPLIST ; 
+STAT->FUNCTIONCALL ;
+STAT->do BLOCK end ; 
+STAT->while EXP do BLOCK end ; 
+STAT->repeat BLOCK until EXP ; 
+STAT->if EXP then BLOCK {elseif EXP then BLOCK} [else BLOCK] end ; 
+STAT->for Name `=´ EXP `,´ EXP [`,´ EXP] do BLOCK end ; 
+STAT->for NAMELIST in EXPLIST do BLOCK end ; 
+STAT->FUNCTION FUNCNAME FUNCBODY ; 
+STAT->local FUNCTION Name FUNCBODY ; 
+STAT->local NAMELIST [`=´ EXPLIST] ;
+
+LASTSTAT->return [EXPLIST] ; 
+LASTSTAT->break ;
+
+FUNCNAME->Name {`.´ Name} [`:´ Name] ;
+
+VARLIST->VAR {`,´ VAR} ;
+
+VAR->Name ;
+VAR->PREFIXEXP `[´ EXP `]´ ;
+VAR->PREFIXEXP `.´ Name ;
+
+NAMELIST->Name {`,´ Name} ;
+
+EXPLIST->{EXP `,´} EXP ;
+
+EXP->nil ;
+EXP->false ;
+EXP->true ;
+EXP->Number ;
+EXP->String ;
+EXP->`...´ ;
+EXP->FUNCTION ; 
+EXP->PREFIXEXP ;
+EXP->TABLECONSTRUCTOR ;
+EXP->EXP BINOP EXP ;
+EXP-> UNOP EXP ;
+
+PREFIXEXP->VAR ;
+PREFIXEXP->FUNCTIONCALL ;
+PREFIXEXP->`(´ EXP `)´ ;
+
+FUNCTIONCALL->PREFIXEXP ARGS ;
+FUNCTIONCALL->PREFIXEXP `:´ Name ARGS ;
+
+ARGS->`(´ [EXPLIST] `)´ ;
+ARGS->TABLECONSTRUCTOR ;
+ARGS->String ;
+
+FUNCTION->FUNCTION FUNCBODY ;
+
+FUNCBODY->`(´ [PARLIST] `)´ BLOCK end ;
+
+PARLIST->NAMELIST [`,´ `...´] ;
+PARLIST->`...´ ;
+
+TABLECONSTRUCTOR->`{´ [FIELDLIST] `}´ ;
+
+FIELDLIST->FIELD {FIELDSEP FIELD} [FIELDSEP] ;
+
+FIELD->`[´ EXP `]´ `=´ EXP ;
+FIELD->Name `=´ EXP ;
+FIELD->EXP ;
+
+FIELDSEP->`,´ ;
+FIELDSEP->`;´ ;
+
+BINOP->`+´ ;
+BINOP->`-´ ;
+BINOP->`*´ ;
+BINOP->`/´ ;
+BINOP->`^´ ;
+BINOP->`%´ ;
+BINOP->`..´ ; 
+BINOP->`<´ ;
+BINOP->`<=´ ;
+BINOP->`>´ ;
+BINOP->`>=´ ;
+BINOP->`==´ ;
+BINOP->`~=´ ; 
+BINOP->and ;
+BINOP->or ;
+
+UNOP->`-´ ;
+UNOP->not ;
+UNOP->`#´ ;
+}$

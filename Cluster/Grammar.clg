@@ -34,6 +34,7 @@ INT := 0+1+2+3+4+5+6+7+8+9
 //        encountered inside '#{' and '}#' or between '${' and '}$'
 
 ${
+S->E ;
 E->T EP ;
 EP->PLUS T EP ;
 EP->;
