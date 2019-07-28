@@ -1,0 +1,8 @@
+{type: INT, value: 1}
+{type: PLUS, value: +}
+{type: INT, value: 1}
+Consuming: 1
+Consuming: +
+Consuming: 1
+SUCCESS!!
+[{E->.T EP , (3) }, {T->.F TP , (1) }, {F->.INT , (1) }, {F->INT ., (1) }, {F->INT ., (1) }, {T->F .TP , (1) }, {TP->., (1) }, {TP->., (1) }, {T->F TP ., (1) }, {T->F TP ., (1) }, {E->T .EP , (3) }, {EP->.PLUS T EP , (3) }, {EP->PLUS .T EP , (3) }, {T->.F TP , (3) }, {F->.INT , (3) }, {F->INT ., (3) }, {F->INT ., (3) }, {T->F .TP , (3) }, {TP->., (3) }, {TP->., (3) }, {T->F TP ., (3) }, {T->F TP ., (3) }, {EP->PLUS T .EP , (3) }, {EP->., (3) }, {EP->., (3) }, {EP->PLUS T EP ., (3) }, {EP->PLUS T EP ., (3) }, {E->T EP ., (3) }, {E->T EP ., (3) }, {S->E ., (3) }, {S->E ., (3) }, {S->E ., (3) }]

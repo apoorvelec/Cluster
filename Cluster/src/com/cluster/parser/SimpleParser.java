@@ -11,6 +11,9 @@ import com.cluster.parser.trees.IParseTreeNode;
 import com.cluster.parser.trees.ParseTreeNodeFactory;
 import com.cluster.tokens.Token;
 import com.owl.trees.ITreeNode;
+import com.owl.trees.draw.ITreePrinter;
+import com.owl.trees.draw.LowWidthLayoutPrinter;
+import com.owl.trees.draw.WideLayoutPrinter;
 
 public class SimpleParser implements IParser{
 	
@@ -21,7 +24,7 @@ public class SimpleParser implements IParser{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String inputProgram = "(1+1)*((1/2+3*4)*2)";
+		String inputProgram = "(1+1)*(1-2)*(1+3+4)";
 		String grammarFilePath = ".\\tests\\grammars\\grammar20.clg";
 		//LongestMatchLexer lexer = new LongestMatchLexer(inputProgram, grammarFilePath);
 		LongestMatchLexer lexer = new LongestMatchLexer(inputProgram);
@@ -146,6 +149,9 @@ public class SimpleParser implements IParser{
 		
 		((ParseTree_E_NTNode)root).accept(walker, null);*/
 		System.out.println(root.getID()+" "+root.getValue());
+		
+		ITreePrinter printer = new LowWidthLayoutPrinter();
+		printer.displayTree(root);
 	}
 	
 	public SimpleParser(List<Token> tokens, Grammar grammar){

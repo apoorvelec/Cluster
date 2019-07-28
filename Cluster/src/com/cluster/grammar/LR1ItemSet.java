@@ -50,7 +50,10 @@ public class LR1ItemSet {
 		while(this._items.size()>0){
 			LR1Item item = this.getAnItem();
 			Set<LR1Item> itemExpansions = item.getItemExpansions();
+			while(itemExpansions.remove(item)){}
 			resultSet.add(item);
+			// remove the items which have already been expanded
+			itemExpansions.removeAll(resultSet); 
 			this._items.addAll(itemExpansions);
 		}
 		

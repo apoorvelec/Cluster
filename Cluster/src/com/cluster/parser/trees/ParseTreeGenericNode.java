@@ -45,8 +45,8 @@ public abstract class ParseTreeGenericNode implements IParseTreeNode {
 			IParseTreeNode node = q.poll();
 			Integer level = l.poll(); 
 			System.out.println("node: "+node.getID()+" "+"level: "+level);
-			for(IParseTreeNode child: node.getAllChildNodes()){
-				q.offer(child);
+			for(com.owl.trees.IParseTreeNode child: node.getAllChildNodes()){
+				q.offer((IParseTreeNode) child);
 				l.offer(level+1);
 			}
 		}
